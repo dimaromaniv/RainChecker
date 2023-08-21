@@ -9,7 +9,7 @@ public class WeatherObject {
     private Wind wind;
     private Clouds clouds;
     private Sys sys;
-    private int timezone;
+    private CityInfo cityInfo;
     private int id;
     private String name;
     private int cod;
@@ -22,20 +22,22 @@ public class WeatherObject {
 
     private int visibility;
 
-    public WeatherObject () {}
+    public WeatherObject() {
+    }
 
-    public WeatherObject (WeatherObject weatherObjectInput) {}
+    public WeatherObject(WeatherObject weatherObjectInput) {
+    }
 
-    public WeatherObject (Main main, Coordinate coord, Weather[] weather, Wind wind, Clouds clouds,
-                           Sys sys, int timezone, int id, String name, int cod,
-                          String dataBase, long dateTime, int visibility) {
+    public WeatherObject(Main main, Weather[] weather, Wind wind, Clouds clouds, Coordinate coord,
+                         Sys sys, CityInfo cityInfo, int id, String name, int cod,
+                         String dataBase, long dateTime, int visibility) {
         this.main = main;
         this.coord = coord;
         this.weather = weather;
         this.wind = wind;
         this.clouds = clouds;
         this.sys = sys;
-        this.timezone = timezone;
+        this.cityInfo = cityInfo;
         this.id = id;
         this.name = name;
         this.cod = cod;
@@ -68,10 +70,6 @@ public class WeatherObject {
         return sys;
     }
 
-    public int getTimezone() {
-        return timezone;
-    }
-
     public int getId() {
         return id;
     }
@@ -100,7 +98,12 @@ public class WeatherObject {
         StringBuilder sb = new StringBuilder();
 
         sb.append("City: ").append(name).append("\n");
-        sb.append("Coordinates: ").append(coord.getLat()).append(", ").append(coord.getLon()).append("\n");
+
+        if (coord != null) {
+            sb.append("Coordinates: ").append(coord.getLat()).append(", ").append(coord.getLon()).append("\n");
+        } else {
+            sb.append("Coordinates: N/A\n"); // Handle null coord
+        }
 
         sb.append("Weather: ");
         for (Weather w : weather) {
@@ -121,7 +124,7 @@ public class WeatherObject {
         sb.append("Sunrise: ").append(sys.getSunrise()).append("\n");
         sb.append("Sunset: ").append(sys.getSunset()).append("\n");
 
-        sb.append("Timezone: ").append(timezone).append("\n");
+
         sb.append("ID: ").append(id).append("\n");
         sb.append("Cod: ").append(cod).append("\n");
 
@@ -131,5 +134,6 @@ public class WeatherObject {
 
         return sb.toString();
     }
+
 
 }

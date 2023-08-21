@@ -12,17 +12,17 @@ import java.util.Scanner;
 
 public class APIConnector {
     private static final String API_KEY = "ab2e247272ffb4896f60b6786a1f8f84";
-    private static final String API_URL = "http://api.openweathermap.org/data/2.5/weather";
+    //    private static final String API_URL = "http://api.openweathermap.org/data/2.5/weather";
+    private static final String API_URL = "http://api.openweathermap.org/data/2.5/";
 
     private static final HttpClient client = HttpClient.newHttpClient();
 
     public APIConnector() {
     }
 
-    ;
-
-    public WeatherObject getAPI() {
+    public WeatherForecast getAPI() {
         WeatherObject answerFromAPI = new WeatherObject();
+        WeatherForecast forecast = new WeatherForecast();
 
         Scanner scanner = new Scanner(System.in);
 
@@ -31,22 +31,31 @@ public class APIConnector {
         cityName = new StringBuilder(scanner.nextLine());
         cityName = removeWhiteSpaces(cityName);
         System.out.print("Enter a country name:");
-        StringBuilder country ;
+        StringBuilder country;
         country = new StringBuilder(scanner.nextLine());
         country = removeWhiteSpaces(country);
         scanner.close();
+        Integer limit = 3;
 
         // The variable which will give access to diferent city
 
-        String apiURL = API_URL + "?q=" + cityName + "," + country + "&APPID=" + API_KEY + "&units=metric";
+//        String apiURL = API_URL + "?q=" + cityName + "," + country + "&APPID=" + API_KEY + "&units=metric";
+
+     // String apiURL = API_URL + "forecast?q=" + cityName + "," + country  + "&APPID=" + API_KEY + "&units=metric";
+
+        //api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}
+
+         StringBuilder apiURL = new StringBuilder();
+         apiURL = new StringBuilder("http://api.openweathermap.org/data/2.5/forecast?lat=57&lon=-2.15&cnt=1&appid=" + API_KEY );
+
 
         HttpRequest request = null;
         try {
             request = HttpRequest.newBuilder()
-                    .uri(new URI(apiURL))
+                    .uri(new URI(apiURL.toString()))
                     .build();
         } catch (URISyntaxException e) {
-          //  System.out.println("Please use only letters");
+            //  System.out.println("Please use only letters");
             throw new RuntimeException();
         }
 
@@ -56,12 +65,13 @@ public class APIConnector {
 
             Gson gson = new Gson();
 
-            answerFromAPI = gson.fromJson(responseBody, WeatherObject.class);
+            forecast = gson.fromJson(responseBody, WeatherForecast.class);
+//            answerFromAPI = gson.fromJson(responseBody, WeatherObject.class);
             System.out.println(responseBody);
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
-        return answerFromAPI;
+        return forecast;
     }
 
     public StringBuilder removeWhiteSpaces(StringBuilder inputString) {
