@@ -16,21 +16,29 @@ public class APIConnector {
 
     private static final HttpClient client = HttpClient.newHttpClient();
 
-    public static WeatherObject getAPI() {
+    public APIConnector() {
+    }
+
+    ;
+
+    public WeatherObject getAPI() {
         WeatherObject answerFromAPI = new WeatherObject();
 
         Scanner scanner = new Scanner(System.in);
 
         System.out.print("Enter a city name: ");
-        String cityName = scanner.nextLine();
+        StringBuilder cityName;
+        cityName = new StringBuilder(scanner.nextLine());
+        cityName = removeWhiteSpaces(cityName);
         System.out.print("Enter a country name:");
-        String country = scanner.nextLine();
+        StringBuilder country ;
+        country = new StringBuilder(scanner.nextLine());
+        country = removeWhiteSpaces(country);
         scanner.close();
 
         // The variable which will give access to diferent city
 
         String apiURL = API_URL + "?q=" + cityName + "," + country + "&APPID=" + API_KEY + "&units=metric";
-
 
         HttpRequest request = null;
         try {
@@ -38,7 +46,8 @@ public class APIConnector {
                     .uri(new URI(apiURL))
                     .build();
         } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
+          //  System.out.println("Please use only letters");
+            throw new RuntimeException();
         }
 
         try {
@@ -48,13 +57,20 @@ public class APIConnector {
             Gson gson = new Gson();
 
             answerFromAPI = gson.fromJson(responseBody, WeatherObject.class);
-
-            //  WeatherObject updatedOutput = WeatherObject.createObject(g);
-
             System.out.println(responseBody);
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
         return answerFromAPI;
+    }
+
+    public StringBuilder removeWhiteSpaces(StringBuilder inputString) {
+        if (inputString.charAt(inputString.length() - 1) == ' ') {
+            inputString = new StringBuilder(new StringBuilder(inputString).deleteCharAt(inputString.length() - 1).toString());
+            if (inputString.charAt(inputString.length() - 1) == ' ') {
+                inputString = new StringBuilder(new StringBuilder(inputString).deleteCharAt(inputString.length() - 1).toString());
+            }
+        }
+        return inputString;
     }
 }

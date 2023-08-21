@@ -1,12 +1,15 @@
-import java.net.URISyntaxException;
+import models.APIConnector;
+import models.WeatherObject;
 
-import static models.APIConnector.getAPI;
+import java.net.URISyntaxException;
 
 public class RainChecker {
 
 
     public static void main(String[] args) throws URISyntaxException {
-        getAPI();
+        APIConnector apiConnector = new APIConnector();
+        WeatherObject weatherObject = apiConnector.getAPI();
+        System.out.println(weatherObject.toStringAllWeatherCondution());
     }
 
 
