@@ -1,3 +1,5 @@
+package models;
+
 public class SunRiseAndSunSet {
     private String country;
     private long sunrise;

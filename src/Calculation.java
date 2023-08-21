@@ -1,6 +1,11 @@
-public class Calculation extends WeatherData{
-
-    Calculation calculation = new Calculation();
-    double i = calculation.getMain().getTemp();
-
-}
+//import models.WeatherObject;
+//
+//public class Calculation extends WeatherObject {
+//
+//    Calculation calculation = new Calculation();
+//    double i = calculation.getMain().getTemp();
+//
+//    public Calculation() {
+//        //super(weatherObjectInput);
+//    }
+//}

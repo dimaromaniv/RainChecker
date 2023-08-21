@@ -1,3 +1,5 @@
+package models;
+
 import com.google.gson.annotations.SerializedName;
 
 public class Main {
@@ -91,5 +93,19 @@ public class Main {
 
     public void setGroundLevel(int groundLevel) {
         this.groundLevel = groundLevel;
+    }
+
+
+    public String toString() {
+        return "Main{" +
+                "temp=" + temp +
+                ", feelsLike=" + feelsLike +
+                ", tempMin=" + tempMin +
+                ", tempMax=" + tempMax +
+                ", pressure=" + pressure +
+                ", humidity=" + humidity +
+                ", seaLevel=" + seaLevel +
+                ", groundLevel=" + groundLevel +
+                '}';
     }
 }
