@@ -3,6 +3,7 @@ package models;
 import com.google.gson.Gson;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.http.HttpClient;
@@ -41,12 +42,12 @@ public class APIConnector {
 
 //        String apiURL = API_URL + "?q=" + cityName + "," + country + "&APPID=" + API_KEY + "&units=metric";
 
-     // String apiURL = API_URL + "forecast?q=" + cityName + "," + country  + "&APPID=" + API_KEY + "&units=metric";
+      String apiURL = API_URL + "forecast?q=" + cityName + "," + country  + "&limit=3" + "&APPID=" + API_KEY + "&units=metric";
 
         //api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}
 
-         StringBuilder apiURL = new StringBuilder();
-         apiURL = new StringBuilder("http://api.openweathermap.org/data/2.5/forecast?lat=57&lon=-2.15&cnt=1&appid=" + API_KEY );
+        // StringBuilder apiURL = new StringBuilder();
+       //  apiURL = new StringBuilder("http://api.openweathermap.org/data/2.5/forecast?lat=40,42&lon=74,00&cnt=1&appid=" + API_KEY + "&units=metric");
 
 
         HttpRequest request = null;
@@ -65,7 +66,7 @@ public class APIConnector {
 
             Gson gson = new Gson();
 
-            forecast = gson.fromJson(responseBody, WeatherForecast.class);
+            forecast = gson.fromJson(responseBody, (Type) WeatherForecast.class);
 //            answerFromAPI = gson.fromJson(responseBody, WeatherObject.class);
             System.out.println(responseBody);
         } catch (IOException | InterruptedException e) {
