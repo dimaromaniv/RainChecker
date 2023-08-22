@@ -1,139 +1,40 @@
 package models;
 
-import com.google.gson.annotations.SerializedName;
+import java.util.Arrays;
 
 public class WeatherObject {
-    private Coordinate coord;
-    private Weather[] weather;
-    private Main main;
-    private Wind wind;
-    private Clouds clouds;
-    private Sys sys;
-    private CityInfo cityInfo;
-    private int id;
-    private String name;
-    private int cod;
+    private long timestamp;
+    private double temperature;
+    private String weatherDescription;
 
-    @SerializedName("base")
-    private String dataBase;
-
-    @SerializedName("dt")
-    private long dateTime;
-
-    private int visibility;
-
-    public WeatherObject() {
+    public WeatherObject(long timestamp, double temperature, Weather[] weatherDescription) {
+        this.timestamp = timestamp;
+        this.temperature = temperature;
+        this.weatherDescription = Arrays.toString(weatherDescription);
     }
 
-    public WeatherObject(WeatherObject weatherObjectInput) {
+    // Getters and setters (or public fields) for the class members
+    public long getTimestamp() {
+        return timestamp;
     }
 
-    public WeatherObject(Main main, Weather[] weather, Wind wind, Clouds clouds, Coordinate coord,
-                         Sys sys, CityInfo cityInfo, int id, String name, int cod,
-                         String dataBase, long dateTime, int visibility) {
-        this.main = main;
-        this.coord = coord;
-        this.weather = weather;
-        this.wind = wind;
-        this.clouds = clouds;
-        this.sys = sys;
-        this.cityInfo = cityInfo;
-        this.id = id;
-        this.name = name;
-        this.cod = cod;
-        this.dataBase = dataBase;
-        this.dateTime = dateTime;
-        this.visibility = visibility;
+    public void setTimestamp(long timestamp) {
+        this.timestamp = timestamp;
     }
 
-    public Coordinate getCoord() {
-        return coord;
+    public double getTemperature() {
+        return temperature;
     }
 
-    public Weather[] getWeather() {
-        return weather;
+    public void setTemperature(double temperature) {
+        this.temperature = temperature;
     }
 
-    public Main getMain() {
-        return main;
+    public String getWeatherDescription() {
+        return weatherDescription;
     }
 
-    public Wind getWind() {
-        return wind;
+    public void setWeatherDescription(String weatherDescription) {
+        this.weatherDescription = weatherDescription;
     }
-
-    public Clouds getClouds() {
-        return clouds;
-    }
-
-    public Sys getSys() {
-        return sys;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getCod() {
-        return cod;
-    }
-
-    public String getBase() {
-        return dataBase;
-    }
-
-    public long getDateTime() {
-        return dateTime;
-    }
-
-    public int getVisibility() {
-        return visibility;
-    }
-
-    public String toStringAllWeatherCondution() {
-        StringBuilder sb = new StringBuilder();
-
-        sb.append("City: ").append(name).append("\n");
-
-        if (coord != null) {
-            sb.append("Coordinates: ").append(coord.getLat()).append(", ").append(coord.getLon()).append("\n");
-        } else {
-            sb.append("Coordinates: N/A\n"); // Handle null coord
-        }
-
-        sb.append("Weather: ");
-        for (Weather w : weather) {
-            sb.append(w.getDescription()).append(", ");
-        }
-        sb.delete(sb.length() - 2, sb.length()); // Remove the last ", "
-        sb.append("\n");
-
-        sb.append("Temperature: ").append(main.getTemp()).append(" °C").append("\n");
-        sb.append("Feels Like: ").append(main.getFeelsLike()).append(" °C").append("\n");
-        sb.append("Pressure: ").append(main.getPressure()).append(" hPa").append("\n");
-        sb.append("Humidity: ").append(main.getHumidity()).append("%").append("\n");
-
-        sb.append("Wind: ").append(wind.getSpeed()).append(" m/s").append("\n");
-
-        sb.append("Cloudiness: ").append(clouds.getAll()).append("%").append("\n");
-
-        sb.append("Sunrise: ").append(sys.getSunrise()).append("\n");
-        sb.append("Sunset: ").append(sys.getSunset()).append("\n");
-
-
-        sb.append("ID: ").append(id).append("\n");
-        sb.append("Cod: ").append(cod).append("\n");
-
-        sb.append("Base: ").append(dataBase).append("\n");
-        sb.append("Date and Time: ").append(dateTime).append("\n");
-        sb.append("Visibility: ").append(visibility).append(" meters").append("\n");
-
-        return sb.toString();
-    }
-
-
 }

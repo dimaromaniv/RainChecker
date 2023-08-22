@@ -3,7 +3,7 @@ package models;
 import com.google.gson.annotations.SerializedName;
 
 public class Main {
-    private double temp;
+    public double temp;
     @SerializedName("feels_like")
     private double feelsLike;
     @SerializedName("temp_min")
