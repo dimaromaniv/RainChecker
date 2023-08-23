@@ -1,4 +1,4 @@
-package models;
+package models.weather;
 
 
 public class Clouds {
@@ -13,11 +13,8 @@ public class Clouds {
         this.all = all;
     }
 
-    public int getAll() {
+    public int getCloudsPersent() {
         return all;
     }
 
-    public void setAll(int all) {
-        this.all = all;
-    }
 }

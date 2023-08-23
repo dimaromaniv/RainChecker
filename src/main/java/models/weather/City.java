@@ -1,15 +1,15 @@
-package models;
+package models.weather;
 
-public class CityInfo {
+public class City {
     private String country;
     private int population;
     private int timezone;
 
-    public CityInfo() {
+    public City() {
         // Default constructor
     }
 
-    public CityInfo(String country, int population, int timezone) {
+    public City(String country, int population, int timezone) {
         this.country = country;
         this.population = population;
         this.timezone = timezone;

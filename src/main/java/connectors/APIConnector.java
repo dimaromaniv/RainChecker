@@ -1,9 +1,9 @@
-package models;
+package connectors;
 
 import com.google.gson.Gson;
+import models.weatherdata.WeatherResponse;
 
 import java.io.IOException;
-import java.lang.reflect.Type;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.http.HttpClient;
@@ -13,42 +13,21 @@ import java.util.Scanner;
 
 public class APIConnector {
     private static final String API_KEY = "ab2e247272ffb4896f60b6786a1f8f84";
-        private static final String API_URL = "http://api.openweathermap.org/data/2.5/forecast";
-//    private static final String API_URL = "http://api.openweathermap.org/data/2.5/";
-
+    private static final String API_URL = "http://api.openweathermap.org/data/2.5/forecast";
     private static final HttpClient client = HttpClient.newHttpClient();
 
     public APIConnector() {
     }
 
     public WeatherResponse getAPI() {
-        WeatherData answerFromAPI = new WeatherData();
-        WeatherForecast forecast = new WeatherForecast();
+        //input from the user
+        String cityName = inputFromUserCity();
+        String country = inputFromUserCountry();
 
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.print("Enter a city name: ");
-        StringBuilder cityName;
-        cityName = new StringBuilder(scanner.nextLine());
-        cityName = removeWhiteSpaces(cityName);
-        System.out.print("Enter a country name:");
-        StringBuilder country;
-        country = new StringBuilder(scanner.nextLine());
-        country = removeWhiteSpaces(country);
-        scanner.close();
-        Integer limit = 3;
-
-        // The variable which will give access to diferent city
-
+//        API keyvand URL address
         String apiURL = API_URL + "?q=" + cityName + "," + country + "&limit=1" + "&APPID=" + API_KEY + "&units=metric";
 
-//      String apiURL = API_URL + "forecast?q=" + cityName + "," + country  + "&limit=1" + "&APPID=" + API_KEY + "&units=metric";
-
-        //api.openweathermap.org/geo/1.0/direct?q={city name},{state code},{country code}&limit={limit}&appid={API key}
-
-        // StringBuilder apiURL = new StringBuilder();
-        //  apiURL = new StringBuilder("http://api.openweathermap.org/data/2.5/forecast?lat=40,42&lon=74,00&cnt=1&appid=" + API_KEY + "&units=metric");
-
+//        String apiURL = "http://api.openweathermap.org/data/2.5/forecast?q=new+york&appid=ab2e247272ffb4896f60b6786a1f8f84";
 
         HttpRequest request = null;
         try {
@@ -67,17 +46,51 @@ public class APIConnector {
 
             Gson gson = new Gson();
 
-//            forecast = gson.fromJson(responseBody, (Type) WeatherForecast.class);
-//            answerFromAPI = gson.fromJson(responseBody, WeatherData.class);
-
             weatherResponse = gson.fromJson(responseBody, WeatherResponse.class);
-
-
             System.out.println(responseBody);
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
         return weatherResponse;
+    }
+
+    public String inputFromUserCity() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter a city name: ");
+        StringBuilder cityName;
+        cityName = new StringBuilder(scanner.nextLine());
+        cityName = removeWhiteSpaces(cityName);
+        cityName = new StringBuilder(containsOnlyLetters(cityName.toString()));
+
+        return cityName.toString();
+    }
+
+    public String inputFromUserCountry() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter a country name:");
+        StringBuilder country;
+        country = new StringBuilder(scanner.nextLine());
+        country = removeWhiteSpaces(country);
+        country = new StringBuilder(containsOnlyLetters(country.toString()));
+
+        scanner.close();
+        return country.toString();
+    }
+
+    public String containsOnlyLetters(String input) {
+        StringBuilder result = new StringBuilder();
+        for (int i = 0 ; i < input.length() ; i++) {
+             if (Character.isLetter(input.charAt(i)) || input.charAt(i) == ' '){
+                    result.append(input.charAt(i));
+             }
+        }
+        for (int j = 0 ; j < result.length() ; j++) {
+            if (result.charAt(j) == ' ') {
+                result.replace(j,j+1,"+");
+            }
+        }
+
+        return result.toString();
     }
 
     public StringBuilder removeWhiteSpaces(StringBuilder inputString) {

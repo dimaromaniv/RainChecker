@@ -1,4 +1,4 @@
-package models;
+package models.weather;
 
 public class Coordinate {
     private double lon;
@@ -13,14 +13,10 @@ public class Coordinate {
     public Coordinate(Double lon, Double lat) {
         this.lon = lon;
         this.lat = lat;
-
-
     }
-
     public double getLon() {
         return lon;
     }
-
 
     public double getLat() {
         return lat;
