@@ -21,13 +21,13 @@ public class APIConnector {
 
     public WeatherResponse getAPI() {
         //input from the user
-        String cityName = inputFromUserCity();
-        String country = inputFromUserCountry();
+//        String cityName = inputFromUserCity();
+//        String country = inputFromUserCountry();
 
 //        API keyvand URL address
-        String apiURL = API_URL + "?q=" + cityName + "," + country + "&limit=1" + "&APPID=" + API_KEY + "&units=metric";
+//        String apiURL = API_URL + "?q=" + cityName + "," + country + "&limit=1" + "&APPID=" + API_KEY + "&units=metric";
 
-//        String apiURL = "http://api.openweathermap.org/data/2.5/forecast?q=new+york&appid=ab2e247272ffb4896f60b6786a1f8f84";
+        String apiURL = "http://api.openweathermap.org/data/2.5/forecast?q=new+york&appid=ab2e247272ffb4896f60b6786a1f8f84&units=metric";
 
         HttpRequest request = null;
         try {
@@ -47,7 +47,7 @@ public class APIConnector {
             Gson gson = new Gson();
 
             weatherResponse = gson.fromJson(responseBody, WeatherResponse.class);
-            System.out.println(responseBody);
+//            System.out.println(responseBody);
         } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }

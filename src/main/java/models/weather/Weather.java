@@ -7,9 +7,10 @@ public class Weather{
     private String icon;
 
     public Weather (){}
-    public Weather (String description , int id ){
+    public Weather (String main ,String description , int id ){
         this.description = description;
         this.id = id;
+        this.main = main;
     }
 
     public int getId() {

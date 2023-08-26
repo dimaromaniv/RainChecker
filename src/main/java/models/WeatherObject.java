@@ -8,8 +8,6 @@ import java.time.ZoneId;
 
 public class WeatherObject {
     private long timestamp;
-
-    private String weatherDescription;
     private Clouds clouds;
     private Coordinate coordinate;
     private City city;
@@ -60,10 +58,6 @@ public class WeatherObject {
         return LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
     }
 
-//    public String getWeatherDescription() {
-//        return weatherDescription;
-//    }
-
     public Weather[] getWeather() {
         return weather;
     }
@@ -71,4 +65,6 @@ public class WeatherObject {
     public Clouds getClouds() {
         return clouds;
     }
+
+
 }
