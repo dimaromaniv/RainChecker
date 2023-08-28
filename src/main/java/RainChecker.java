@@ -1,15 +1,18 @@
-import models.*;
 import connectors.APIConnector;
-import models.weatherdata.WeatherResponse;
-
+import calculation.Calculation;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import weatherdata.WeatherObject;
+import weatherdata.WeatherResponse;
 
 import java.net.URISyntaxException;
 import java.util.List;
-
+@SpringBootApplication
 public class RainChecker {
 
 
     public static void main(String[] args) throws URISyntaxException {
+        SpringApplication.run(PersistenceStarterApplication.class, args);
         run();
 
 
@@ -31,17 +34,18 @@ public class RainChecker {
         WeatherResponse weatherResponse = apiConnector.getAPI();
         List<WeatherObject> listOfWeatherObj = weatherResponse.creatingListOfWeatherObjects(weatherResponse);
         Calculation calculation = new Calculation(weatherResponse);
-
-        calculation.cloudyPercent();
-        calculation.cloudyDescryption();
-        calculation.weatherIdCounter();
-        calculation.humidityPercent();
-        calculation.temperatureLevel();
-        calculation.forecastTimeLap();
         calculation.makeWateringDecision();
 
+//        calculation.cloudyPercent();
+//        calculation.cloudyDescryption();
+//        calculation.weatherIdCounter();
+//        calculation.humidityPercent();
+//        calculation.temperatureLevel();
+//        calculation.forecastTimeLap();
+//        calculation.makeWateringDecision();
 
-        System.out.println(calculation.cloudyPercent());
+
+//        System.out.println(calculation.cloudyPercent());
 
     }
 

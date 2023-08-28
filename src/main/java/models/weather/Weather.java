@@ -30,9 +30,7 @@ public class Weather{
 
 
 
-    public String getIcon() {
-        return icon;
-    }
+
 
 
 }

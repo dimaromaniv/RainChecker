@@ -1,18 +1,30 @@
-import models.WeatherObject;
-import models.weather.Weather;
-import models.weatherdata.WeatherResponse;
+package calculation;
+
+import jakarta.persistence.*;
+import weatherdata.WeatherResponse;
+import weatherdata.WeatherObject;
 
 import java.time.Duration;
 import java.time.LocalDateTime;
-import java.util.*;
-
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+@Entity
 public class Calculation {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "dpt_num")
+    private Long idNumber;
 
 
     private WeatherResponse weatherResponse;
+    public Calculation (){}
+
 
     public Calculation(WeatherResponse weatherResponse) {
         this.weatherResponse = weatherResponse;
+        this.idNumber = null;
 
     }
 

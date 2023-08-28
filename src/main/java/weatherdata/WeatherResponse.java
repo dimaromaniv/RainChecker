@@ -1,6 +1,4 @@
-package models.weatherdata;
-
-import models.WeatherObject;
+package weatherdata;
 
 import java.util.ArrayList;
 import java.util.List;

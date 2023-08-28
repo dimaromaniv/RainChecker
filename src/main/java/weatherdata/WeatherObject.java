@@ -1,11 +1,19 @@
-package models;
+package weatherdata;
 
-import models.weather.*;
 
+
+import jakarta.persistence.Entity;
+import models.weather.City;
+import models.weather.Clouds;
+import models.weather.Coordinate;
+import models.weather.Sys;
+import models.weather.Weather;
+import models.weather.Wind;
+import models.weather.Main;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-
+@Entity
 public class WeatherObject {
     private long timestamp;
     private Clouds clouds;
@@ -29,6 +37,7 @@ public class WeatherObject {
         this.wind = wind;
         this.weather = weather;
     }
+
 
 
 

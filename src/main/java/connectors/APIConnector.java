@@ -1,7 +1,7 @@
 package connectors;
 
 import com.google.gson.Gson;
-import models.weatherdata.WeatherResponse;
+import weatherdata.WeatherResponse;
 
 import java.io.IOException;
 import java.net.URI;

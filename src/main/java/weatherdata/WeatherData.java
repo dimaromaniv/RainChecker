@@ -1,8 +1,18 @@
-package models.weatherdata;
+package weatherdata;
 
 import com.google.gson.annotations.SerializedName;
+import jakarta.persistence.Entity;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import models.weather.*;
-
+import models.weather.City;
+import models.weather.Clouds;
+import models.weather.Coordinate;
+import models.weather.Main;
+import models.weather.Sys;
+import models.weather.Weather;
+import models.weather.Wind;
+@Entity
 public class WeatherData {
     public long dt;
     private Coordinate coord;
